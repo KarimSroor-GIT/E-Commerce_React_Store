@@ -58,7 +58,7 @@ class App extends React.Component
       <div>
      { 
        /*
-       header component modifed to read state from redux state store [user reducer]
+       header component modifed to read state from redux state store [root reducer]
        instead reading it  from local component state 
        <Header currentUser={this.state.currentUser}/> */
     }

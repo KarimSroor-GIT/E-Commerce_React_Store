@@ -4,8 +4,10 @@ import {Link} from 'react-router-dom';
 import {auth} from '../../firebase/firebase.utils';
 import {ReactComponent as Logo} from  '../../assets/crown.svg';
 import {connect} from 'react-redux';
+import CartIcon from '../cart-icon/cart-icon.component';
+import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
-const Header = ({currentUser})=> (
+const Header = ({currentUser,hidden})=> (
 
   <div className = 'header'>
     <Link className='logo-container' to="/"> 
@@ -24,13 +26,24 @@ const Header = ({currentUser})=> (
       <Link className ='option' to='/SignIn'>Sign In</Link>
     )
   }
+  <CartIcon/>
     </div>
+    {
+       hidden? null : <CartDropdown/>
+    }
   </div>
 
 
 );
-
+/*  
+  older syntax 
+  ----------------------------------------
 const mapStateToprops = state=>({
   currentUser : state.user.currentUser
-})
-export default  connect(mapStateToprops)(Header);
+*/
+  const mapStateToprops = ({user:{currentUser},cart:{hidden}}) =>({
+   currentUser,
+    hidden
+});
+
+export default  connect(mapStateToprops)(Header); 
