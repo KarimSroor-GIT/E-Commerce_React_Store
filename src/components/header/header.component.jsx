@@ -6,6 +6,9 @@ import {ReactComponent as Logo} from  '../../assets/crown.svg';
 import {connect} from 'react-redux';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+import {createStructuredSelector} from 'reselect'
+import {selectCartHidden} from '../../redux/cart/cart.selectors';
+import {selectCurrentUser} from '../../redux/user/user.selectors'
 
 const Header = ({currentUser,hidden})=> (
 
@@ -36,14 +39,21 @@ const Header = ({currentUser,hidden})=> (
 
 );
 /*  
-  older syntax 
+  older syntax replace by destructing data from state
   ----------------------------------------
 const mapStateToprops = state=>({
   currentUser : state.user.currentUser
-*/
+--------------------------------------------------------------------
+replcae the use of state properties by call to selector for performance enhancment from memoization
+-----------------------------------------------------------------------
   const mapStateToprops = ({user:{currentUser},cart:{hidden}}) =>({
    currentUser,
     hidden 
+});
+*/
+const mapStateToprops = createStructuredSelector({
+  currentUser: selectCurrentUser,
+   hidden : selectCartHidden
 });
 
 export default  connect(mapStateToprops)(Header); 
